@@ -7,34 +7,32 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [
-        {
-          name: 'Linda',
-          id: '1342jfslkjfalw322risafjl',
-        },
-        {
-          name: 'Frank',
-          id: 'oqwurjfkdznf832r89ru10ur',
-        },
-        {
-          name: 'Jacky',
-          id: 'iasljf289ru8qurq23hrnfjk',
-        },
-        {
-          name: 'Yuliia',
-          id: 'iajksnfiuq4r8uq298uiwqun',
-        },
-      ],
+      charList: [],
     };
+  }
+
+  componentDidMount() {
+    fetch('https://api.genshin.dev/characters')
+      .then((response) => response.json())
+      .then(
+        (chars) =>
+          this.setState(() => {
+            return { charList: chars };
+          }),
+        () => {
+          console.log(this.state.charList);
+        }
+      );
   }
 
   render() {
     return (
       <div className='App'>
-        {this.state.monsters.map((monster) => {
+        {this.state.charList.map((char) => {
           return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
+            <div key={char}>
+              <h1>{char.toUpperCase()}</h1>
+              <img src={char.card} alt={char} />
             </div>
           );
         })}
