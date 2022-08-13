@@ -1,24 +1,27 @@
 import { Component } from 'react';
 
+import CardList from './components/card-list/cardList.component';
 import './App.css';
 
-const GENSHIN_API = 'https://api.genshin.dev/characters/';
+const API_CHARS = 'https://api.genshin.dev/characters/';
+// const API_CHAR_CARDS = `https://api.genshin.dev/characters/${char}/card`;
 
 class App extends Component {
   constructor() {
+    console.log('constructor');
+
     super();
 
     this.state = {
       charList: [],
       searchField: '',
     };
-    console.log('constructor');
   }
 
   componentDidMount() {
     console.log('componentDidMount');
 
-    fetch(GENSHIN_API)
+    fetch(API_CHARS)
       .then((response) => response.json())
       .then(
         (chars) =>
@@ -57,13 +60,14 @@ class App extends Component {
           placeholder='Search Genshin chars'
           onChange={onSearchChange}
         />
-        {filteredChars.map((char) => {
+        {/* {filteredChars.map((char) => {
           return (
             <div key={char}>
               <h1>{char[0].toUpperCase() + char.slice(1)}</h1>
             </div>
           );
-        })}
+        })} */}
+        <CardList />
       </div>
     );
   }
