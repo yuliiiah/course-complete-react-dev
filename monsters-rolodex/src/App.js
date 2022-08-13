@@ -17,6 +17,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log('componentDidMount');
+
     fetch(GENSHIN_API)
       .then((response) => response.json())
       .then(
@@ -30,11 +31,22 @@ class App extends Component {
       );
   }
 
+  onSearchChange = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase();
+
+    this.setState(() => {
+      return { searchField };
+    });
+  };
+
   render() {
     console.log('render');
 
-    const filteredChars = this.state.charList.filter((char) =>
-      char.toLocaleLowerCase().startsWith(this.state.searchField)
+    const { onSearchChange } = this;
+    const { charList, searchField } = this.state;
+
+    const filteredChars = charList.filter((char) =>
+      char.toLocaleLowerCase().startsWith(searchField)
     );
 
     return (
@@ -43,13 +55,7 @@ class App extends Component {
           className='search-box'
           type='search'
           placeholder='Search Genshin chars'
-          onChange={(event) => {
-            const searchField = event.target.value.toLocaleLowerCase();
-
-            this.setState(() => {
-              return { searchField };
-            });
-          }}
+          onChange={onSearchChange}
         />
         {filteredChars.map((char) => {
           return (
