@@ -2,17 +2,22 @@ import { Component } from 'react';
 
 import './App.css';
 
+const GENSHIN_API = 'https://api.genshin.dev/characters/';
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
       charList: [],
+      searchField: '',
     };
+    console.log('constructor');
   }
 
   componentDidMount() {
-    fetch('https://api.genshin.dev/characters')
+    console.log('componentDidMount');
+    fetch(GENSHIN_API)
       .then((response) => response.json())
       .then(
         (chars) =>
@@ -26,13 +31,30 @@ class App extends Component {
   }
 
   render() {
+    console.log('render');
+
+    const filteredChars = this.state.charList.filter((char) =>
+      char.toLocaleLowerCase().startsWith(this.state.searchField)
+    );
+
     return (
       <div className='App'>
-        {this.state.charList.map((char) => {
+        <input
+          className='search-box'
+          type='search'
+          placeholder='Search Genshin chars'
+          onChange={(event) => {
+            const searchField = event.target.value.toLocaleLowerCase();
+
+            this.setState(() => {
+              return { searchField };
+            });
+          }}
+        />
+        {filteredChars.map((char) => {
           return (
             <div key={char}>
-              <h1>{char.toUpperCase()}</h1>
-              <img src={char.card} alt={char} />
+              <h1>{char[0].toUpperCase() + char.slice(1)}</h1>
             </div>
           );
         })}
