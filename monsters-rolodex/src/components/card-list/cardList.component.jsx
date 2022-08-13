@@ -2,9 +2,15 @@ import { Component } from 'react';
 
 class CardList extends Component {
   render() {
+    console.log('render');
+
+    const { chars } = this.props;
+
     return (
       <div>
-        <h1>Hello I'm the CardList component!</h1>
+        {chars.map((char) => (
+          <h1 key={char}>{char}</h1>
+        ))}
       </div>
     );
   }

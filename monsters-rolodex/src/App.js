@@ -8,8 +8,6 @@ const API_CHARS = 'https://api.genshin.dev/characters/';
 
 class App extends Component {
   constructor() {
-    console.log('constructor');
-
     super();
 
     this.state = {
@@ -19,18 +17,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
-
     fetch(API_CHARS)
       .then((response) => response.json())
-      .then(
-        (chars) =>
-          this.setState(() => {
-            return { charList: chars };
-          }),
-        () => {
-          console.log(this.state.charList);
-        }
+      .then((chars) =>
+        this.setState(() => {
+          return { charList: chars };
+        })
       );
   }
 
@@ -43,8 +35,6 @@ class App extends Component {
   };
 
   render() {
-    console.log('render');
-
     const { onSearchChange } = this;
     const { charList, searchField } = this.state;
 
@@ -60,14 +50,7 @@ class App extends Component {
           placeholder='Search Genshin chars'
           onChange={onSearchChange}
         />
-        {/* {filteredChars.map((char) => {
-          return (
-            <div key={char}>
-              <h1>{char[0].toUpperCase() + char.slice(1)}</h1>
-            </div>
-          );
-        })} */}
-        <CardList />
+        <CardList chars={filteredChars} />
       </div>
     );
   }
