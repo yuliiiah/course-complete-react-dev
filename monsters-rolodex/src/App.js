@@ -4,7 +4,8 @@ import CardList from './components/card-list/cardList.component';
 import SearchBox from './components/search-box/searchBox.component';
 import './App.css';
 
-const API_CHARS = 'https://api.genshin.dev/characters/all';
+const API_CHAR_NAMES = 'https://api.genshin.dev/characters';
+const API_CHAR_OBJS = 'https://api.genshin.dev/characters/all';
 
 class App extends Component {
   constructor() {
@@ -12,18 +13,44 @@ class App extends Component {
 
     this.state = {
       charList: [],
+      charNames: [],
       searchField: '',
     };
   }
 
   componentDidMount() {
-    fetch(API_CHARS)
+    this.getCharacters();
+    this.getCharNames();
+  }
+
+  getCharacters() {
+    fetch(API_CHAR_OBJS)
       .then((response) => response.json())
-      .then((chars) =>
+      .then((chars) => {
+        const filteredCharObjs = chars.filter(
+          (char) =>
+            !char.name.toLowerCase().includes('thoma') &&
+            !char.name.toLowerCase().includes('traveler')
+        );
+
         this.setState(() => {
-          return { charList: chars };
-        })
-      );
+          return { charList: filteredCharObjs };
+        });
+      });
+  }
+
+  getCharNames() {
+    fetch(API_CHAR_NAMES)
+      .then((response) => response.json())
+      .then((charNames) => {
+        const filteredCharNames = charNames.filter(
+          (name) => !name.includes('thoma') && !name.includes('traveler')
+        );
+
+        this.setState(() => {
+          return { charNames: filteredCharNames };
+        });
+      });
   }
 
   onSearchChange = (event) => {
@@ -36,11 +63,18 @@ class App extends Component {
 
   render() {
     const { onSearchChange } = this;
-    const { charList, searchField } = this.state;
+    const { charList, charNames, searchField } = this.state;
 
     const filteredChars = charList.filter((char) =>
       char.name.toLowerCase().startsWith(searchField)
     );
+
+    const filteredCharNames = charNames.filter((charName) =>
+      charName.startsWith(searchField)
+    );
+
+    console.log(filteredChars);
+    console.log(filteredCharNames);
 
     return (
       <div className='App'>
@@ -49,10 +83,7 @@ class App extends Component {
           onChangeHandler={onSearchChange}
           placeholder='Search characters'
         />
-        <CardList chars={filteredChars} />
-        {/* {filteredChars.map((char, idx) => (
-          <h1 key={idx}>{char.name}</h1>
-        ))} */}
+        <CardList chars={filteredChars} charNames={filteredCharNames} />
       </div>
     );
   }
