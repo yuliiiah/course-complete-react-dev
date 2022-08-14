@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
 import CardList from './components/card-list/cardList.component';
+import SearchBox from './components/search-box/searchBox.component';
 import './App.css';
 
 const API_CHARS = 'https://api.genshin.dev/characters/all';
@@ -43,11 +44,10 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <input
+        <SearchBox
           className='search-box'
-          type='search'
-          placeholder='Search Genshin chars'
-          onChange={onSearchChange}
+          onChangeHandler={onSearchChange}
+          placeholder='Search characters'
         />
         <CardList chars={filteredChars} />
         {/* {filteredChars.map((char, idx) => (
