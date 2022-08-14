@@ -3,8 +3,7 @@ import { Component } from 'react';
 import CardList from './components/card-list/cardList.component';
 import './App.css';
 
-const API_CHARS = 'https://api.genshin.dev/characters/';
-// const API_CHAR_CARDS = `https://api.genshin.dev/characters/${char}/card`;
+const API_CHARS = 'https://api.genshin.dev/characters/all';
 
 class App extends Component {
   constructor() {
@@ -27,7 +26,7 @@ class App extends Component {
   }
 
   onSearchChange = (event) => {
-    const searchField = event.target.value.toLocaleLowerCase();
+    const searchField = event.target.value.toLowerCase();
 
     this.setState(() => {
       return { searchField };
@@ -39,7 +38,7 @@ class App extends Component {
     const { charList, searchField } = this.state;
 
     const filteredChars = charList.filter((char) =>
-      char.toLocaleLowerCase().startsWith(searchField)
+      char.name.toLowerCase().startsWith(searchField)
     );
 
     return (
@@ -51,6 +50,9 @@ class App extends Component {
           onChange={onSearchChange}
         />
         <CardList chars={filteredChars} />
+        {/* {filteredChars.map((char, idx) => (
+          <h1 key={idx}>{char.name}</h1>
+        ))} */}
       </div>
     );
   }

@@ -2,14 +2,14 @@ import { Component } from 'react';
 
 class CardList extends Component {
   render() {
-    console.log('render');
+    // console.log('render');
 
     const { chars } = this.props;
 
     return (
       <div>
-        {chars.map((char) => (
-          <h1 key={char}>{char}</h1>
+        {chars.map((char, idx) => (
+          <h1 key={idx}>{char.name}</h1>
         ))}
       </div>
     );
