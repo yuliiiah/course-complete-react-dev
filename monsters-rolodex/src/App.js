@@ -13,6 +13,7 @@ const App = () => {
   const [charNames, setCharNames] = useState([]);
   const [filteredChars, setFilteredChars] = useState(charList);
   const [filteredCharNames, setFilteredCharNames] = useState(charNames);
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
     fetch(API_CHAR_OBJS)
@@ -61,12 +62,23 @@ const App = () => {
     setSearchField(searchFieldString);
   };
 
+  const onTitleChange = (event) => {
+    const searchFieldString = event.target.value.toLowerCase();
+    setTitle(searchFieldString);
+  };
+
   return (
     <div className='App'>
+      <h1 className='app-title'>{title}</h1>
       <SearchBox
         className='chars-search-box'
         onChangeHandler={onSearchChange}
         placeholder='Search characters'
+      />
+      <SearchBox
+        className='title-search-box'
+        onChangeHandler={onTitleChange}
+        placeholder='Change title'
       />
       <CardList chars={filteredChars} charNames={filteredCharNames} />
     </div>
