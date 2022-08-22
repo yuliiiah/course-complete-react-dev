@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import FormInput from '../form-input/form-input.comp';
+
 import {
   createAuthUserWithEmailPassword,
   createUserDocumentFromAuth,
@@ -52,8 +54,8 @@ const SignUpForm = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handleSubmit}>
-        <label>Display name</label>
-        <input
+        <FormInput
+          label='Display name'
           type='text'
           onChange={handleChange}
           name='displayName'
@@ -61,8 +63,8 @@ const SignUpForm = () => {
           required
         />
 
-        <label>Email</label>
-        <input
+        <FormInput
+          label='Email'
           type='email'
           onChange={handleChange}
           name='email'
@@ -70,8 +72,8 @@ const SignUpForm = () => {
           required
         />
 
-        <label>Password</label>
-        <input
+        <FormInput
+          label='Password'
           type='password'
           onChange={handleChange}
           name='password'
@@ -79,8 +81,8 @@ const SignUpForm = () => {
           required
         />
 
-        <label>Confirm password</label>
-        <input
+        <FormInput
+          label='Confirm password'
           type='password'
           onChange={handleChange}
           name='confirmPassword'
