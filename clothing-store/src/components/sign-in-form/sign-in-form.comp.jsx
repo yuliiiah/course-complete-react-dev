@@ -3,7 +3,7 @@ import { useState } from 'react';
 import FormInput from '../form-input/form-input.comp';
 import Button from '../button/button.comp';
 
-import './sign-in-form.styles.scss';
+import { SignInFormContainer, ButtonsContainer } from './sign-in-form.styles';
 
 import {
   signInWithGooglePopup,
@@ -57,7 +57,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className='sign-up-form-container'>
+    <SignInFormContainer>
       <h2>Already have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -79,14 +79,14 @@ const SignInForm = () => {
           required
         />
 
-        <div className='buttons-container'>
+        <ButtonsContainer>
           <Button type='submit'>Sign in</Button>
           <Button type='button' buttonType='google' onClick={signInWithGoogle}>
             Google sign in
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInFormContainer>
   );
 };
 
