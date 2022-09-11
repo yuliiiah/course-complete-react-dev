@@ -51,7 +51,3 @@ export const ProductCardContainer = styled.div`
     }
   }
 `;
-
-// .product-card-container {
-
-// }

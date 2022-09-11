@@ -26,6 +26,11 @@ export const CheckoutItemContainer = styled.div`
       margin: 0 10px;
     }
   }
+
+  .remove-button {
+    padding-left: 12px;
+    cursor: pointer;
+  }
 `;
 
 export const CheckoutImageContainer = styled.div`
@@ -37,11 +42,3 @@ export const CheckoutImageContainer = styled.div`
     height: 100%;
   }
 `;
-
-// .checkout-item-container {
-
-//   .remove-button {
-//     padding-left: 12px;
-//     cursor: pointer;
-//   }
-// }
